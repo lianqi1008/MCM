@@ -37,7 +37,11 @@ dataset
 ```
 ## Training
 ```
-CUDA_VISIBLE_DEVICES=0 python main_compress.py -d ./dataset/coco -e 100 --batch_size 32 --checkpoint ./checkpoint/pretrained/pretrain_vit_base.pth --output_dir dirpath/to/save/checkpoint --log_dir dirpath/to/save/logs -m MCM --cuda
+CUDA_VISIBLE_DEVICES=0 python main_compress.py \
+-d ./dataset/coco -e 100 --batch_size 32 \
+--checkpoint ./checkpoint/pretrained/pretrain_vit_base.pth \
+--output_dir dirpath/to/save/checkpoint \
+--log_dir dirpath/to/save/logs -m MCM --cuda
 ```
 ## Inference
 
