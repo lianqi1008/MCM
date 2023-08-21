@@ -1,0 +1,12 @@
+numpy==1.21.5
+opencv_python==4.7.0.68
+pandas==1.2.3
+Pillow==8.3.2
+pybind11==2.10.3
+pytorch_msssim==0.2.1
+range_coder==1.1
+scipy==1.7.3
+setuptools==59.5.0
+timm==0.3.2
+torch==1.10.0
+torchvision==0.11.0
