@@ -5,6 +5,7 @@ This is a Pytorch implementation of the paper "**You Can Mask More For Extremely
 
 This repo defines the masked compression model
 (MCM) for extremely low-bitrate image compression in "You Can Mask More For Extremely Low-Bitrate Image Compression".
+
 ![Framework](./assets/framework.jpg)
 
 # Dependencies and Installation
@@ -65,6 +66,17 @@ CUDA_VISIBLE_DEVICES=0 python -m compressai.utils.eval_model \
 -p './checkpoint/finetuned/coco/checkpoint_xxx.pth' \
 --exp_name coco --vis_num 144 --cuda
 ```
+## Dataset
+
+# Results
+### Qualitative Results
+
+![qualitative](./assets/qualitative.png)
+
+### Qualitative Results
+![qualitative](./assets/quantitative_celebA.png)
+
+![qualitative](./assets/quantitative_celebA.png)
 # Citation
 ```
 @misc{li2023mask,
