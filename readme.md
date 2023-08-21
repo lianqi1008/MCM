@@ -1,10 +1,10 @@
 # MCM
 
-This is a Pytorch implementation of the paper "**You Can Mask More For Extremely Low-Bitrate Image Compression**". 
+This is the Pytorch implementation of the paper "**You Can Mask More For Extremely Low-Bitrate Image Compression**". 
 [[Arxiv Paper](https://arxiv.org/abs/2306.15561)]
 
-This repo defines the masked compression model
-(MCM) for extremely low-bitrate image compression in "You Can Mask More For Extremely Low-Bitrate Image Compression".
+This repo defines the **Masked Compression Model
+(MCM)** for extremely low-bitrate image compression in the paper above.
 
 ![Framework](./assets/framework.jpg)
 
@@ -48,7 +48,7 @@ dataset
     |- celeba
 ```
 ## Train
-Train from scratch and please download the pretrained model from original [[MAE's repo](https://github.com/facebookresearch/mae)] or download the model we copied(
+Train from scratch and please download the pretrained model from original [MAE's repo](https://github.com/facebookresearch/mae) or download the model we copied(
 [[Google drive](https://arxiv.org/abs/2306.15561)] or [[Baidu cloud](https://arxiv.org/abs/2306.15561)] (code: dfsz)). And please put it in ./checkpoint/pretrained/.
 ```
 CUDA_VISIBLE_DEVICES=0 python main_compress.py \
@@ -60,7 +60,7 @@ CUDA_VISIBLE_DEVICES=0 python main_compress.py \
 ## Inference
 If you want to load our finetuned models, please download from [[Google drive](https://arxiv.org/abs/2306.15561)] or [[Baidu cloud](https://arxiv.org/abs/2306.15561)] (code: dfsz) and put in ./checkpoint/finetuned/.
 
-Note that '--exp_name' is the location where the bit stream of the token index is saved, you can name it arbitrarily, and you can delete the folder after inferencing, which is not important.
+Note that '--exp_name' is the location where the bit stream of the token index is saved, you can name it arbitrarily, and you can delete the folder after inference, which is not important.
 
 "Inference on GPU is not recommended for the autoregressive models (the entropy coder is run sequentially on CPU)."(mentioned in CompressAI), so please run on CPU for inference.
 ```
@@ -69,7 +69,9 @@ CUDA_VISIBLE_DEVICES=0 python -m compressai.utils.eval_model \
 -p './checkpoint/finetuned/coco/checkpoint_xxx.pth' \
 --exp_name coco --vis_num 144 --cuda
 ```
-## Dataset
+<!-- ## Dataset
+We evaluate the perforamce of the method on [MS COCO 2014](https://cocodataset.org) and [CelebAMask-HQ](https://github.com/switchablenorms/CelebAMask-HQ). Both the images and annotations are needed. For more details, please check out the experimental setup of our paper. -->
+
 
 # Results
 ### Qualitative Results
