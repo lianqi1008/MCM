@@ -4,10 +4,6 @@ This is the repository of the paper "You Can Mask More For Extremely Low-Bitrate
 
 [[Paper](http://www.google.com/)]
 
-## Todo
-- Release codes
-- Website page
-
 # Dependencies and Installation
 ```
 git clone https://github.com/lianqi1008/MCM.git

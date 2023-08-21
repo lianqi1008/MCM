@@ -159,7 +159,9 @@ def inference(model, x, filename, recon_path, exp_name, dataset):
     bpp = sum(len(s[0]) for s in out_enc["strings"]) * 8.0 / num_pixels
 
     ids_keep = np.array(out_enc["ids_keep"].cpu())
-    ids_keep_path = os.path.join('./compressai/utils/eval_model/bin', str(exp_name))
+    ids_keep_path = os.path.join('./compressai/utils/eval_model/bin', exp_name)
+    if not os.path.exists('./compressai/utils/eval_model/bin'):
+        os.mkdir('./compressai/utils/eval_model/bin')
     if not os.path.exists(ids_keep_path):
         os.system(r"touch {}".format(ids_keep_path))
     np.savetxt(ids_keep_path, ids_keep, fmt="%d")
