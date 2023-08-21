@@ -1,15 +1,12 @@
 import argparse
 import math
-import random
 import shutil
 import os
-import json
 from pathlib import Path
 
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import torchvision
 
 import torch.backends.cudnn as cudnn
 from torch.utils.data import DataLoader
@@ -208,14 +205,6 @@ def main(args):
         interpolate_pos_embed(net, checkpoint_model)
         msg = net.load_state_dict(checkpoint_model)
 
-    if args.resume:
-        checkpoint_model_mae = torch.load("./checkpoint/checkpoint-79.pth", map_location='cpu')["model"]
-        # checkpoint = torch.load(args.resume, map_location='cpu')
-        # msg = net.load_state_dict(checkpoint["model"])
-        for k, v in net.named_parameters():
-            if k in list(checkpoint_model_mae.keys()) and not k.startswith('decoder'):
-                v.requires_grad = False
-
     net.to(device)
     names = []
     for name, param in net.named_parameters():
@@ -230,7 +219,7 @@ def main(args):
     optimizer, aux_optimizer = configure_optimizers(net, args)
     # print("lr: %f" % optimizer.param_groups[0]['lr'])
     # print("effective batch size: %d" % eff_batch_size)
-    # lr_scheduler = optim.lr_scheduler.ReduceLROnPlateau(optimizer, "min", factor=0.3, patience=4)
+
     loss_scaler = NativeScaler()
     misc.load_model(args=args, model=net, optimizer=optimizer, aux_optimizer=aux_optimizer, loss_scaler=loss_scaler)
 
@@ -239,57 +228,12 @@ def main(args):
     print(f"Start training for {args.epochs} epochs")
     last_epoch = 0 + args.start_epoch
     optimizer.param_groups[0]['lr'] = args.learning_rate
-    for epoch in range(last_epoch, args.epochs):
+    for epoch in range(last_epoch, args.epochs, 5):
         print(f"Learning rate: {optimizer.param_groups[0]['lr']}")
         train_stats = train_one_epoch(net, criterion, train_dataloader, optimizer, aux_optimizer, epoch, loss_scaler, args.clip_max_norm, writer=writer, args=args)
-
-        test_stats, lpips_test = test_epoch(epoch, test_dataloader, net, criterion)
-        loss = test_stats['loss']
-
+        test_stats = test_epoch(epoch, test_dataloader, net, criterion)
         if args.output_dir:
             misc.save_model(args=args, epoch=epoch, model=net, optimizer=optimizer, aux_optimizer=aux_optimizer, loss_scaler=loss_scaler)
-
-        log_stats = {**{f'train_{k}': v for k, v in train_stats.items()}, **{f'test_{k}': v for k, v in test_stats.items()}, 'epoch': epoch, 'n_parameters': n_parameters}
-        # if args.output_dir and misc.is_main_process():
-        #     if writer is not None:
-        #         writer.flush()
-        #     with open(os.path.join(args.output_dir, "log.txt"), mode="a", encoding="utf-8") as f:
-        #         f.write(json.dumps(log_stats) + "\n")
-        #     log_lpips = {'epoch': epoch,'lpips':lpips_test.item(),'bpp loss':test_stats['bpp_loss']}
-        #     with open(os.path.join(args.output_dir, "lpips.txt"), mode="a", encoding="utf-8") as f:
-        #         f.write(json.dumps(log_lpips) + "\n")
-
-        # loss = test_epoch(epoch, test_dataloader, net, criterion)
-        # lr_scheduler.step(loss)
-
-        # is_best = loss < best_loss
-        # best_loss = min(loss, best_loss)
-
-        # if args.save:
-        #     save_checkpoint(
-        #         {
-        #             "epoch": epoch,
-        #             "state_dict": net.state_dict(),
-        #             "loss": loss,
-        #             "optimizer": optimizer.state_dict(),
-        #             "aux_optimizer": aux_optimizer.state_dict(),
-        #             "lr_scheduler": lr_scheduler.state_dict(),
-        #         },
-        #         is_best,
-        #         args.save_path,
-        #         # args.save_path[:-8]+'_epoch'+str(epoch)+args.save_path[-8:],
-        #     )
-
-        # log_stats = {**{f'train_{k}': v for k, v in train_stats.items()},
-        #                 **{f'test_{k}': v for k, v in test_stats.items()},
-        #                 'epoch': epoch,
-        #                 'n_parameters': n_parameters}
-
-        # if args.output_dir and misc.is_main_process():
-        #     if log_writer is not None:
-        #         log_writer.flush()
-        #     with open(os.path.join(args.output_dir, "log.txt"), mode="a", encoding="utf-8") as f:
-        #         f.write(json.dumps(log_stats) + "\n")
 
 
 if __name__ == "__main__":

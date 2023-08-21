@@ -43,13 +43,21 @@ dataset
 ## Train
 ```
 CUDA_VISIBLE_DEVICES=0 python main_compress.py \
--d ./dataset/coco -e 100 --batch_size 32 \
+-m MCM -d ./dataset/coco -e 100 --batch_size 32 \
 --checkpoint ./checkpoint/pretrained/pretrain_vit_base.pth \
 --output_dir dirpath/to/save/checkpoint \
---log_dir dirpath/to/save/logs -m MCM --cuda
+--log_dir dirpath/to/save/logs --cuda
 ```
 ## Inference
+Note that '--exp_name' is the location where the bit stream of the token index is saved, you can name it arbitrarily, and you can delete the folder after inferencing, which is not important.
 
+"Inference on GPU is not recommended for the autoregressive models (the entropy coder is run sequentially on CPU)."(mentioned in CompressAI), so please run on CPU for inference.
+```
+CUDA_VISIBLE_DEVICES=0 python -m compressai.utils.eval_model \
+-a MCM -d './dataset/coco/' -r dirpath/to/output \
+-p './checkpoint/finetuned/coco/checkpoint_xxx.pth' \
+--exp_name coco --vis_num 144 --cuda
+```
 # Citation
 ```
 @misc{li2023mask,
