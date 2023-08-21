@@ -71,12 +71,23 @@ CUDA_VISIBLE_DEVICES=0 python -m compressai.utils.eval_model \
 # Results
 ### Qualitative Results
 
-![qualitative](./assets/qualitative.png)
+![qualitative](./assets/qualitative_celebA.png)
+![qualitative](./assets/qualitative_coco.png)
 
-### Qualitative Results
+
+### Quantitative Results
+
 ![qualitative](./assets/quantitative_celebA.png)
 
+RD performance on CelebAMask-HQ dataset.
+
 ![qualitative](./assets/quantitative_celebA.png)
+
+RD performance on COCO dataset.
+
+# Pretrained Models
+
+
 # Citation
 ```
 @misc{li2023mask,
