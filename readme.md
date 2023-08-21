@@ -1,13 +1,23 @@
 # MCM
 
-This is the repository of the paper "You Can Mask More For Extremely Low-Bitrate Image Compression". 
+This is a Pytorch implementation of the paper "**You Can Mask More For Extremely Low-Bitrate Image Compression**". 
+[[Arxiv Paper](https://arxiv.org/abs/2306.15561)]
 
-[[Paper](http://www.google.com/)]
+This repo defines the masked compression model
+(MCM) for extremely low-bitrate image compression in "You Can Mask More For Extremely Low-Bitrate Image Compression".
+![Framework](./assets/framework.jpg)
 
 # Dependencies and Installation
 ```
+conda create -n MCM python=3.7
+conda activate MCM
+pip install compressai
+pip install pybind11
 git clone https://github.com/lianqi1008/MCM.git
 cd MCM
+pip install -r requirements.txt
+pip install -e .
+pip install -e '.[dev]'
 ```
 # Get Started
 ## Preparation
@@ -37,6 +47,7 @@ dataset
     |- celeba
 ```
 ## Train
+Training from scratch:
 ```
 CUDA_VISIBLE_DEVICES=0 python main_compress.py \
 -m MCM -d ./dataset/coco -e 100 --batch_size 32 \
