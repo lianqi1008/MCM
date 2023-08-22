@@ -58,7 +58,7 @@ CUDA_VISIBLE_DEVICES=0 python main_compress.py \
 --log_dir dirpath/to/save/logs --cuda
 ```
 ## Inference
-If you want to load our finetuned models, please download from [[Baidu cloud](链接：https://pan.baidu.com/s/1g0WL5OxNP8rh4fvnYSOiKg?pwd=pbd9)] and put in ./checkpoint/finetuned/.
+If you want to load our finetuned models, please download from [[Baidu cloud](https://pan.baidu.com/s/1g0WL5OxNP8rh4fvnYSOiKg?pwd=pbd9)] and put in ./checkpoint/finetuned/.
 
 Note that '--exp_name' is the location where the bit stream of the token index is saved, you can name it arbitrarily, and you can delete the folder after inference, which is not important.
 
