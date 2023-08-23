@@ -16,7 +16,7 @@ pip install compressai
 pip install pybind11
 git clone https://github.com/lianqi1008/MCM.git
 cd MCM
-pip install -r requirements.txt
+<!-- pip install -r requirements.txt -->
 pip install -e .
 pip install -e '.[dev]'
 ```
@@ -48,8 +48,9 @@ dataset
     |- celeba
 ```
 ## Train
-Train from scratch and please download the pretrained model from original [MAE's repo](https://github.com/facebookresearch/mae) or download the model we copied(
-[[Baidu cloud](https://arxiv.org/abs/2306.15561)]). And please put it in ./checkpoint/pretrained/.
+<!-- Train from scratch and please download the pretrained model from original [MAE's repo](https://github.com/facebookresearch/mae) or download the model we copied(
+[[Baidu cloud](https://arxiv.org/abs/2306.15561)]). And please put it in ./checkpoint/pretrained/. -->
+Train from scratch and please download the pretrained model from original [MAE's repo](https://github.com/facebookresearch/mae). And please put it in ./checkpoint/pretrained/.
 ```
 CUDA_VISIBLE_DEVICES=0 python main_compress.py \
 -m MCM -d ./dataset/coco -e 100 --batch_size 32 \
@@ -58,7 +59,7 @@ CUDA_VISIBLE_DEVICES=0 python main_compress.py \
 --log_dir dirpath/to/save/logs --cuda
 ```
 ## Inference
-If you want to load our finetuned models, please download from [[Baidu cloud](https://pan.baidu.com/s/1g0WL5OxNP8rh4fvnYSOiKg?pwd=pbd9)] and put in ./checkpoint/finetuned/.
+<!-- If you want to load our finetuned models, please download from [[Baidu cloud](https://pan.baidu.com/s/1g0WL5OxNP8rh4fvnYSOiKg?pwd=pbd9)] and put in ./checkpoint/finetuned/. -->
 
 Note that '--exp_name' is the location where the bit stream of the token index is saved, you can name it arbitrarily, and you can delete the folder after inference, which is not important.
 
