@@ -16,7 +16,6 @@ pip install compressai
 pip install pybind11
 git clone https://github.com/lianqi1008/MCM.git
 cd MCM
-<!-- pip install -r requirements.txt -->
 pip install -e .
 pip install -e '.[dev]'
 ```
