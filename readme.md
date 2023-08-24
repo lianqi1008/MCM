@@ -43,9 +43,10 @@ dataset
             |- train
             |- test
         |- scores
-        |- structure|- coco
+        |- structure
     |- celeba
 ```
+Note: The three folders below the 'dataset' have the same subfolders, both 'train' and 'test', in which the corresponding images are placed.
 ## Train
 <!-- Train from scratch and please download the pretrained model from original [MAE's repo](https://github.com/facebookresearch/mae) or download the model we copied(
 [[Baidu cloud](https://arxiv.org/abs/2306.15561)]). And please put it in ./checkpoint/pretrained/. -->
