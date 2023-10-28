@@ -276,9 +276,9 @@ class MCM(CompressionModel):
         len_keep = self.vis_tokens
 
         # face:
-        # idx = torch.multinomial(torch.Tensor(t_scores / 255 * ((s_scores + 1) / 255)), num_samples=L, replacement=False).cuda()
+        # idx = torch.multinomial(torch.Tensor((t_scores / 255) * s_scores), num_samples=L, replacement=False).cuda()
         # coco:
-        idx = torch.multinomial(torch.Tensor(t_scores * (s_scores / 255 + 1)), num_samples=L, replacement=False).cuda()
+        idx = torch.multinomial(torch.Tensor(t_scores * s_scores), num_samples=L, replacement=False).cuda()
 
         ids_keep = idx[:, :len_keep]
         # ids_restore = torch.argsort(idx, dim=1)
