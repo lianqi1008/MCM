@@ -8,8 +8,12 @@ This repo defines the **Masked Compression Model
 
 ![Framework](./assets/framework.jpg)
 
+# To-do List
+- Release MCM checkpoints
+- Release more lightweight variant models
+
 # Dependencies and Installation
-```
+<!-- ```
 conda create -n MCM python=3.7
 conda activate MCM
 pip install compressai
@@ -18,14 +22,50 @@ git clone https://github.com/lianqi1008/MCM.git
 cd MCM
 pip install -e .
 pip install -e '.[dev]'
+``` -->
+
+```
+conda create -n MCM python=3.7
+conda activate MCM
+pip install -r requirements.txt
+python setup.py install
 ```
 # Get Started
+
+We provide code examples on the COCO test set.
+
 ## Preparation
-Generate the patch scores:
+
+### 1. Create Required Directories
+
+```bash
+mkdir dataset/coco/images
+mkdir dataset/coco/scores
+mkdir dataset/coco/structure
 ```
-python util/score_cal.py -d0 path/to/image -d1 path/to/structure -d2 path/to/save/score
+### 2. Dataset
+
+- **Download:** [MS COCO 2014 Dataset](https://cocodataset.org)
+- **Get Annotations:**
+
+    ```
+    python util/binary_segmentation.py \
+    --coco_dir COCO_VAL_DIR \
+    --annotation_file COCO_VAL_ANNO_FILE \
+    --image_dir ./dataset/coco/images/train \
+    --segm_dir ./dataset/coco/strucure/test
+    ```
+    **Note:** We randomly sample 200 images from the val set as our test set and the relevant code already exists in `util/binary_segmentation.py`.
+
+
+### 3. Generate Patch Complexity Scores for DA-Mask
+
 ```
+python util/score_cal.py -d0 ./dataset/coco/images/test -d1 ./dataset/coco/structure/test -d2 ./dataset/coco/scores
+```
+
 The final file structure is as follows:
+
 ```
 checkpoint
     |- pretrained
@@ -35,8 +75,6 @@ checkpoint
             |- xxx.pth
             |- ...
         |- celeba
-            |- xxx.pth
-            |- ...
 dataset
     |- coco
         |- images
@@ -46,6 +84,7 @@ dataset
         |- structure
     |- celeba
 ```
+
 Note: The three folders below the 'dataset/coco' have the same subfolders, both 'train' and 'test', in which the corresponding images are placed. The folder structure of 'dataset/celeba' is consistent with that of 'dataset/coco'.
 ## Train
 <!-- Train from scratch and please download the pretrained model from original [MAE's repo](https://github.com/facebookresearch/mae) or download the model we copied(
