@@ -27,14 +27,15 @@ pip install -e '.[dev]'
 ```
 conda create -n MCM python=3.7
 conda activate MCM
+git clone https://github.com/lianqi1008/MCM.git
+cd MCM
 pip install -r requirements.txt
 python setup.py install
 ```
 # Get Started
 
-We provide code examples on the COCO test set.
-
 ## Preparation
+We provide code examples on the COCO dataset.
 
 ### 1. Create Required Directories
 
@@ -49,11 +50,8 @@ mkdir dataset/coco/structure
 - **Get Annotations:**
 
     ```
-    python util/binary_segmentation.py \
-    --coco_dir COCO_VAL_DIR \
-    --annotation_file COCO_VAL_ANNO_FILE \
-    --image_dir ./dataset/coco/images/train \
-    --segm_dir ./dataset/coco/strucure/test
+    python util/binary_segmentation.py --coco_dir COCO_VAL_DIR --annotation_file COCO_VAL_ANNO_FILE --image_dir path/to/imageDir --segm_dir path/to/strcutureDir
+    e.g., python util/binary_segmentation.py --coco_dir COCO_VAL_DIR --annotation_file COCO_VAL_ANNO_FILE --image_dir ./dataset/coco/images/test --segm_dir ./dataset/coco/strucure/test
     ```
     **Note:** We randomly sample 200 images from the val set as our test set and the relevant code already exists in `util/binary_segmentation.py`.
 
@@ -61,7 +59,8 @@ mkdir dataset/coco/structure
 ### 3. Generate Patch Complexity Scores for DA-Mask
 
 ```
-python util/score_cal.py -d0 ./dataset/coco/images/test -d1 ./dataset/coco/structure/test -d2 ./dataset/coco/scores
+python util/score_cal.py -d0 path/to/imageDir -d1 path/to/strcutureDir -d2 path/to/scoresDir
+e.g., python util/score_cal.py -d0 ./dataset/coco/images/test -d1 ./dataset/coco/structure/test -d2 ./dataset/coco/scores
 ```
 
 The final file structure is as follows:
@@ -89,7 +88,8 @@ Note: The three folders below the 'dataset/coco' have the same subfolders, both 
 ## Train
 <!-- Train from scratch and please download the pretrained model from original [MAE's repo](https://github.com/facebookresearch/mae) or download the model we copied(
 [[Baidu cloud](https://arxiv.org/abs/2306.15561)]). And please put it in ./checkpoint/pretrained/. -->
-Train from scratch and please download the pretrained model from original [MAE's repo](https://github.com/facebookresearch/mae). And please put it in ./checkpoint/pretrained/.
+Train from scratch and please download the pre-trained model from [MAE's repo](https://github.com/facebookresearch/mae). And please put it in ./checkpoint/pretrained/.
+
 ```
 CUDA_VISIBLE_DEVICES=0 python main_compress.py \
 -m MCM -d ./dataset/coco -e 100 --batch_size 32 \
@@ -97,6 +97,7 @@ CUDA_VISIBLE_DEVICES=0 python main_compress.py \
 --output_dir dirpath/to/save/checkpoint \
 --log_dir dirpath/to/save/logs --cuda
 ```
+
 ## Inference
 <!-- If you want to load our finetuned models, please download from [[Baidu cloud](https://pan.baidu.com/s/1g0WL5OxNP8rh4fvnYSOiKg?pwd=pbd9)] and put in ./checkpoint/finetuned/. -->
 
@@ -112,22 +113,39 @@ CUDA_VISIBLE_DEVICES=0 python -m compressai.utils.eval_model \
 <!-- ## Dataset
 We evaluate the perforamce of the method on [MS COCO 2014](https://cocodataset.org) and [CelebAMask-HQ](https://github.com/switchablenorms/CelebAMask-HQ). Both the images and annotations are needed. For more details, please check out the experimental setup of our paper. -->
 
+# MCM-Tiny
+MCM-Tiny(50M) is a lightweight version of MCM(200M), built on [MAE-Tiny](https://arxiv.org/abs/2205.14443). You can download the pre-trained model from [MAE-Lite's repo](https://github.com/wangsr126/MAE-Lite). The training and inference steps for MCM-Tiny are the same as for MCM.
+<!-- 
+# Checkpoints
+| Method | Dataset | Link | Dataset | Link | 
+| ---- | ------ | ------ | ------ | ------ |
+| MCM | COCO | [cnn_0035]() | CelebAMask-HQ | [cnn_0035]() |
+| MCM | COCO | [cnn_0035]() | CelebAMask-HQ | [cnn_0035]() |
+| MCM | COCO | [cnn_0035]() | CelebAMask-HQ | [cnn_0035]() |
+| MCM | COCO | [cnn_0035]() | CelebAMask-HQ | [cnn_0035]() |
+| MCM | COCO | [cnn_0035]() | CelebAMask-HQ | [cnn_0035]() |
+| MCM-Tiny | COCO | [cnn_0035]() | CelebAMask-HQ | [cnn_0035]() |
+| MCM-Tiny | COCO | [cnn_0035]() | CelebAMask-HQ | [cnn_0035]() |
+| MCM-Tiny | COCO | [cnn_0035]() | CelebAMask-HQ | [cnn_0035]() |
+| MCM-Tiny | COCO | [cnn_0035]() | CelebAMask-HQ | [cnn_0035]() | -->
 
-# Results
-### Qualitative Results
+# Results on COCO
+<img src="./assets/coco_lpips_tiny.png" alt="Description" style="width: 45%; display: inline-block;">
+<img src="./assets/coco_fid_tiny.png" alt="Description" style="width: 45%; display: inline-block;">
+<!-- ### Qualitative Results -->
+<!-- ![qualitative](./assets/qualitative_celebA.png) -->
+<!-- ![qualitative](./assets/qualitative_celebA.png)
+![qualitative](./assets/qualitative_coco.png) -->
 
-![qualitative](./assets/qualitative_celebA.png)
-![qualitative](./assets/qualitative_coco.png)
 
-
-### Quantitative Results
+<!-- ### Quantitative Results
 RD performance on CelebAMask-HQ dataset.
 
-![qualitative](./assets/quantitative_celebA.png)
+![qualitative](./assets/quantitative_celebA.png) -->
 
-RD performance on COCO dataset.
+<!-- RD performance on COCO dataset.
 
-![qualitative](./assets/quantitative_celebA.png)
+![qualitative](./assets/quantitative_celebA.png) -->
 
 
 # Citation
