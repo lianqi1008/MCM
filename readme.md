@@ -86,8 +86,6 @@ dataset
 
 Note: The three folders below the 'dataset/coco' have the same subfolders, both 'train' and 'test', in which the corresponding images are placed. The folder structure of 'dataset/celeba' is consistent with that of 'dataset/coco'.
 ## Train
-<!-- Train from scratch and please download the pretrained model from original [MAE's repo](https://github.com/facebookresearch/mae) or download the model we copied(
-[[Baidu cloud](https://arxiv.org/abs/2306.15561)]). And please put it in ./checkpoint/pretrained/. -->
 Train from scratch and please download the pre-trained model from [MAE's repo](https://github.com/facebookresearch/mae). And please put it in ./checkpoint/pretrained/.
 
 ```
@@ -99,8 +97,6 @@ CUDA_VISIBLE_DEVICES=0 python main_compress.py \
 ```
 
 ## Inference
-<!-- If you want to load our finetuned models, please download from [[Baidu cloud](https://pan.baidu.com/s/1g0WL5OxNP8rh4fvnYSOiKg?pwd=pbd9)] and put in ./checkpoint/finetuned/. -->
-
 Note that '--exp_name' is the location where the bit stream of the token index is saved, you can name it arbitrarily, and you can delete the folder after inference, which is not important.
 
 "Inference on GPU is not recommended for the autoregressive models (the entropy coder is run sequentially on CPU)."(mentioned in CompressAI), so please run on CPU for inference.
@@ -110,8 +106,6 @@ CUDA_VISIBLE_DEVICES=0 python -m compressai.utils.eval_model \
 -p './checkpoint/finetuned/coco/checkpoint_xxx.pth' \
 --exp_name coco --vis_num 144 --cuda
 ```
-<!-- ## Dataset
-We evaluate the perforamce of the method on [MS COCO 2014](https://cocodataset.org) and [CelebAMask-HQ](https://github.com/switchablenorms/CelebAMask-HQ). Both the images and annotations are needed. For more details, please check out the experimental setup of our paper. -->
 
 # MCM-Tiny
 MCM-Tiny(50M) is a lightweight version of MCM(200M), built on [MAE-Tiny](https://arxiv.org/abs/2205.14443). You can download the pre-trained model from [MAE-Lite's repo](https://github.com/wangsr126/MAE-Lite). The training and inference steps for MCM-Tiny are the same as for MCM.
