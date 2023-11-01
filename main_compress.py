@@ -232,7 +232,7 @@ def main(args):
         print(f"Learning rate: {optimizer.param_groups[0]['lr']}")
         train_stats = train_one_epoch(net, criterion, train_dataloader, optimizer, aux_optimizer, epoch, loss_scaler, args.clip_max_norm, writer=writer, args=args)
         test_stats = test_epoch(epoch, test_dataloader, net, criterion)
-        if args.output_dir:
+        if args.output_dir and (epoch-last_epoch)%5==0:
             misc.save_model(args=args, epoch=epoch, model=net, optimizer=optimizer, aux_optimizer=aux_optimizer, loss_scaler=loss_scaler)
 
 
