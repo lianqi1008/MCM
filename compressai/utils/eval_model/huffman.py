@@ -1,10 +1,5 @@
 import heapq
 import os
-"""
-author: Bhrigu Srivastava
-website: https:bhrigu.me
-"""
-
 
 class HuffmanCoding:
 
@@ -13,6 +8,7 @@ class HuffmanCoding:
         self.heap = []
         self.codes = {}
         self.reverse_mapping = {}
+        self.frequency = {' ': 255, '0': 46, '1': 156, '2': 112, '3': 56, '4': 56, '5': 52, '6': 45, '7': 45, '8': 45, '9': 45}
 
     class HeapNode:
 
@@ -110,7 +106,7 @@ class HuffmanCoding:
             text = file.read()
             text = text.rstrip()
 
-            frequency = self.make_frequency_dict(text)
+            frequency = self.frequency
             self.make_heap(frequency)
             self.merge_nodes()
             self.make_codes()
