@@ -1,7 +1,7 @@
-# MCM
+# MCM: You Can Mask More For Extremely Low-Bitrate Image Compression (Pattern Recognition 2026)
 
 This is the Pytorch implementation of the paper "**You Can Mask More For Extremely Low-Bitrate Image Compression**". 
-[[Arxiv Paper](https://arxiv.org/abs/2306.15561)]
+[[Paper]([https://arxiv.org/abs/2306.15561](https://www.sciencedirect.com/science/article/pii/S0031320326010745?dgcid=author))]
 
 This repo defines the **Masked Compression Model
 (MCM)** for extremely low-bitrate image compression in the paper above.
